@@ -78,7 +78,7 @@ const MainPage = () => {
         return;
       }
 
-      // Overlay animation sequence
+      // Overlay animation sequence (cinematic)
       const tl = gsap.timeline({
         onComplete: () => {
           setCurrentSection(_nextSection);
@@ -90,34 +90,33 @@ const MainPage = () => {
         },
       });
 
-      // Start overlay off-screen right, above content
+      // 1. Overlay slides in (above content)
       gsap.set(overlayRef.current, {
         x: "100vw",
         display: "block",
-        zIndex: 50,
+        zIndex: 100, // Overlay above text during transition
       });
-
       if (prevTextEls.length) gsap.set(prevTextEls, { opacity: 1 });
       if (nextTextEls.length) gsap.set(nextTextEls, { opacity: 0 });
 
-      // Slide overlay in (above content)
       tl.to(overlayRef.current, {
         x: 0,
-        duration: 0.8,
-        ease: "nurtureEase",
+        duration: 0.7,
+        ease: "power2.inOut",
+        onStart: () => setOverlayPhase("in"),
         onComplete: () => setOverlayPhase("covered"),
       });
 
-      // Fade out prev text after overlay is fully in
+      // 2. Fade out prev text (under overlay)
       if (prevTextEls.length) {
         tl.to(prevTextEls, {
           opacity: 0,
-          duration: 0.2,
+          duration: 0.25,
           ease: "power2.out",
         });
       }
 
-      // Switch section while overlay is fully in
+      // 3. Move container to next section (while overlay is fully covering)
       tl.add(() => {
         setCurrentSection(_nextSection);
         if (containerRef.current) {
@@ -129,34 +128,90 @@ const MainPage = () => {
         setOverlayPhase("out");
       });
 
-      // Fade in next text as overlay slides out
+      // 4. Fade in next text (still under overlay)
       if (nextTextEls.length) {
-        tl.to(
-          nextTextEls,
-          {
-            opacity: 1,
-            duration: 0.7,
-            ease: "power2.out",
-          },
-          "+=0.1"
-        );
+        tl.to(nextTextEls, {
+          opacity: 1,
+          duration: 0.5,
+          ease: "power2.out",
+        });
       }
 
-      // Slide overlay out to left (above content)
-      tl.to(
-        overlayRef.current,
-        {
-          x: "-100vw",
-          duration: 0.8,
-          ease: "nurtureEase",
-          onComplete: () => {
-            gsap.set(overlayRef.current, { display: "none" });
-          },
+      // 5. Overlay slides out (revealing new content)
+      tl.to(overlayRef.current, {
+        x: "-100vw",
+        duration: 0.7,
+        ease: "power2.inOut",
+        onComplete: () => {
+          gsap.set(overlayRef.current, { display: "none", zIndex: 5 }); // Reset overlay below text
         },
-        "<"
-      );
+      });
     }, 0);
   };
+
+  useEffect(() => {
+    // On mount, ensure overlay is hidden and first section text is hidden
+    if (overlayRef.current) {
+      gsap.set(overlayRef.current, { x: "100vw", display: "none", zIndex: 5 });
+    }
+    if (containerRef.current) {
+      gsap.set(containerRef.current, { x: 0 });
+    }
+    setPrevSection(null);
+    setNextSection(null);
+    setTransitioning(false);
+    setIsScrolling(false);
+    setOverlayPhase("idle");
+    setCurrentSection(0);
+
+    // --- Trigger cinematic animation for Section 1 on initial load ---
+    setTimeout(() => {
+      if (!overlayRef.current || !containerRef.current) return;
+      const textEls = containerRef.current.children[0]
+        ? Array.from(
+            containerRef.current.children[0].querySelectorAll(
+              ".quantum-section-text"
+            )
+          )
+        : [];
+      // Overlay animation sequence (cinematic)
+      const tl = gsap.timeline();
+      // 1. Overlay slides in (above content)
+      gsap.set(overlayRef.current, {
+        x: "100vw",
+        display: "block",
+        zIndex: 100,
+      });
+      if (textEls.length) gsap.set(textEls, { opacity: 0, y: 40 });
+      tl.to(overlayRef.current, {
+        x: 0,
+        duration: 0.7,
+        ease: "power2.inOut",
+        onStart: () => setOverlayPhase("in"),
+        onComplete: () => setOverlayPhase("covered"),
+      });
+      // 2. Fade in text (still under overlay)
+      if (textEls.length) {
+        tl.to(textEls, {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.1,
+          ease: "power2.out",
+        });
+      }
+      // 3. Overlay slides out (revealing content)
+      tl.to(overlayRef.current, {
+        x: "-100vw",
+        duration: 0.7,
+        ease: "power2.inOut",
+        onComplete: () => {
+          gsap.set(overlayRef.current, { display: "none", zIndex: 5 });
+          setOverlayPhase("idle");
+        },
+      });
+    }, 0);
+  }, []);
 
   useEffect(() => {
     let scrollTimeout;
@@ -192,11 +247,11 @@ const MainPage = () => {
 
   return (
     <main ref={mainRef} className="h-screen w-full overflow-hidden relative">
-      {/* Overlay Layer */}
+      {/* Overlay Layer - z-5, below text */}
       <div
         ref={overlayRef}
-        className="fixed top-0 left-0 w-screen h-screen z-50 pointer-events-none"
-        style={{ display: "none", pointerEvents: "none" }}
+        className="fixed top-0 left-0 w-screen h-screen z-5 pointer-events-none"
+        style={{ display: "none" }}
       />
       <div
         ref={containerRef}
@@ -205,15 +260,23 @@ const MainPage = () => {
       >
         {sectionComponents.map((Section, idx) => {
           let showText = false;
-          if (!transitioning && idx === currentSection) showText = true;
+          let animateIn = false;
+          if (!transitioning && idx === currentSection) {
+            showText = true;
+            animateIn = false; // No animation on initial load
+          }
           if (
             transitioning &&
             idx === prevSection &&
             overlayPhase !== "covered"
-          )
+          ) {
             showText = true;
-          if (transitioning && idx === nextSection && overlayPhase === "out")
+            animateIn = false;
+          }
+          if (transitioning && idx === nextSection && overlayPhase === "out") {
             showText = true;
+            animateIn = true; // Animate in when revealed by scroll
+          }
           return (
             <div
               key={idx}
@@ -221,13 +284,15 @@ const MainPage = () => {
             >
               {(idx === currentSection ||
                 idx === prevSection ||
-                idx === nextSection) && <Section showText={showText} />}
+                idx === nextSection) && (
+                <Section showText={showText} animateIn={animateIn} />
+              )}
             </div>
           );
         })}
       </div>
-      {/* Navigation Arrows */}
-      <div className="absolute inset-0 pointer-events-none z-50 flex flex-col items-end justify-center">
+      {/* Navigation Arrows always above */}
+      <div className="absolute inset-0 pointer-events-none z-[200] flex flex-col items-end justify-center">
         <div className="flex flex-col gap-2 mr-8 pointer-events-auto">
           <button
             onClick={() => handleScroll("prev")}

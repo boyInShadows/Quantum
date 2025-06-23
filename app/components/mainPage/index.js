@@ -94,7 +94,7 @@ const MainPage = () => {
       gsap.set(overlayRef.current, {
         x: "100vw",
         display: "block",
-        zIndex: 100, // Overlay above text during transition
+        zIndex: 11, // Overlay above text during transition
       });
       if (prevTextEls.length) gsap.set(prevTextEls, { opacity: 1 });
       if (nextTextEls.length) gsap.set(nextTextEls, { opacity: 0 });

@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Force GPU compositing for z-[150] elements */
+.z-\[150\] {
+  transform: translateZ(0);
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-rgb: 255, 255, 255;

@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { ChevronUp, ChevronDown } from "lucide-react";
 import gsap from "gsap";
+import Header from "../header";
 
 const sections = [
   {
@@ -10,7 +11,7 @@ const sections = [
     title: "Beyond the Event Horizon: Build the Future",
     subtitle: "Welcome to Quantum Sector",
     description:
-      "Event Horizon Tech isn’t just a platform—it’s a gravitational pull for innovation. From first line of code to global scale, we’re your co-pilot.",
+      "Event Horizon Tech isn't just a platform—it's a gravitational pull for innovation. From first line of code to global scale, we're your co-pilot.",
   },
   {
     color: "#9B51E0", // quantum-purple
@@ -186,11 +187,21 @@ const MainPage = () => {
 
   return (
     <div className="h-screen w-full overflow-hidden relative">
+      {/* Fixed Header */}
+      <Header />
+
       {/* Fixed overlay that covers entire screen during transitions */}
       <div
         ref={overlayRef}
         className="fixed top-0 left-0 w-full h-full z-[100] pointer-events-none"
-        style={{ display: "none", willChange: "transform" }}
+        style={{
+          display: "none",
+          willChange: "transform",
+          background:
+            currentSection === 0
+              ? "linear-gradient(90.4deg, rgba(0,0,0,1) 10%, rgba(183,72,248,1) 101%)"
+              : sections[currentSection].color,
+        }}
       />
 
       {/* Background sections with individual refs */}
@@ -199,12 +210,46 @@ const MainPage = () => {
           key={i}
           ref={bgRefs[i]}
           className="absolute inset-0 h-full w-full"
-          style={{
-            backgroundColor: section.color,
-            opacity: i === currentSection ? 1 : 0,
-            zIndex: 10 + i,
-            willChange: "transform",
-          }}
+          style={
+            i === 0
+              ? {
+                  backgroundImage:
+                    "linear-gradient(90.4deg, rgba(0,0,0,1) 10%, rgba(183,72,248,1) 101%)",
+                  opacity: i === currentSection ? 1 : 0,
+                  zIndex: 10 + i,
+                  willChange: "transform",
+                }
+              : i === 1
+              ? {
+                  backgroundImage:
+                    "linear-gradient(86.4deg, rgba(0,0,0,1) 11.7%, rgba(94,85,247,1) 115.6%)",
+                  opacity: i === currentSection ? 1 : 0,
+                  zIndex: 10 + i,
+                  willChange: "transform",
+                }
+              : i === 2
+              ? {
+                  backgroundImage:
+                    "linear-gradient(88.4deg, rgba(29,29,29,1) 10.8%, rgba(94,224,253,1) 103.8%)",
+                  opacity: i === currentSection ? 1 : 0,
+                  zIndex: 10 + i,
+                  willChange: "transform",
+                }
+              : i === 3
+              ? {
+                  backgroundImage:
+                    "linear-gradient(92.4deg, rgba(0,0,0,1) 10.2%, rgba(16,243,192,1) 102.6%)",
+                  opacity: i === currentSection ? 1 : 0,
+                  zIndex: 10 + i,
+                  willChange: "transform",
+                }
+              : {
+                  backgroundColor: section.color,
+                  opacity: i === currentSection ? 1 : 0,
+                  zIndex: 10 + i,
+                  willChange: "transform",
+                }
+          }
         />
       ))}
 
@@ -219,8 +264,8 @@ const MainPage = () => {
             opacity: index === currentSection ? 1 : 0,
           }}
         >
-          <div className="text-center max-w-4xl px-4">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+          <div className="text-center max-w-4xl px-4 pt-20">
+            <h1 className="text-5xl md:text-6xl font-earthOrbiter mb-6 leading-tight">
               {section.title}
             </h1>
             {section.subtitle && (

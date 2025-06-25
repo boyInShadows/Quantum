@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        earthOrbiter: ["earthOrbiter", "sans-serif"],
+      },
       colors: {
         quantum: {
           blue: "#2D9CDB",

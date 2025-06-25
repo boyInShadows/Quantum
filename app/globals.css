@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: earthOrbiter;
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url("/fonts/earthorbiter.ttf") format("truetype");
+}
+
 /* Force GPU compositing for z-[150] elements */
 .z-\[150\] {
   transform: translateZ(0);

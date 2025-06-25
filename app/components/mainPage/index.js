@@ -8,6 +8,10 @@ import Header from "../header";
 const sections = [
   {
     color: "#2D9CDB", // quantum-blue
+    gradient:
+      "linear-gradient(90.4deg, rgba(0,0,0,1) 10%, rgba(183,72,248,1) 101%)",
+    overlayGradient:
+      "linear-gradient(-90.4deg, rgba(0,0,0,1) 10%, rgba(183,72,248,1) 101%)",
     title: "Beyond the Event Horizon: Build the Future",
     subtitle: "Welcome to Quantum Sector",
     description:
@@ -15,6 +19,10 @@ const sections = [
   },
   {
     color: "#9B51E0", // quantum-purple
+    gradient:
+      "linear-gradient(86.4deg, rgba(0,0,0,1) 11.7%, rgba(94,85,247,1) 115.6%)",
+    overlayGradient:
+      "linear-gradient(-86.4deg, rgba(0,0,0,1) 11.7%, rgba(94,85,247,1) 115.6%)",
     title: "Lightning-Fast Performance",
     subtitle: "",
     description:
@@ -22,6 +30,10 @@ const sections = [
   },
   {
     color: "#FF4D8D", // quantum-pink
+    gradient:
+      "linear-gradient(88.4deg, rgba(29,29,29,1) 10.8%, rgba(94,224,253,1) 103.8%)",
+    overlayGradient:
+      "linear-gradient(-88.4deg, rgba(29,29,29,1) 10.8%, rgba(94,224,253,1) 103.8%)",
     title: "Creative Web Experiences",
     subtitle: "",
     description:
@@ -29,6 +41,10 @@ const sections = [
   },
   {
     color: "#27AE60", // quantum-green
+    gradient:
+      "linear-gradient(92.4deg, rgba(0,0,0,1) 10.2%, rgba(16,243,192,1) 102.6%)",
+    overlayGradient:
+      "linear-gradient(-92.4deg, rgba(0,0,0,1) 10.2%, rgba(16,243,192,1) 102.6%)",
     title: "Modern Web Development",
     subtitle: "",
     description:
@@ -83,11 +99,11 @@ const MainPage = () => {
         gsap.set(el, { opacity: i === currentSection ? 1 : 0 });
       });
 
-      // 1. Prepare overlay and show it
+      // 1. Prepare overlay and show it (set to target section's overlayGradient)
       tl.set(overlayRef.current, {
         x: "100%",
         display: "block",
-        backgroundColor: targetColor,
+        backgroundImage: sections[targetSection].overlayGradient,
       });
 
       // Force browser to reflow overlay layer BEFORE continuing animation
@@ -197,10 +213,7 @@ const MainPage = () => {
         style={{
           display: "none",
           willChange: "transform",
-          background:
-            currentSection === 0
-              ? "linear-gradient(90.4deg, rgba(0,0,0,1) 10%, rgba(183,72,248,1) 101%)"
-              : sections[currentSection].color,
+          backgroundImage: sections[currentSection].overlayGradient,
         }}
       />
 
@@ -210,46 +223,12 @@ const MainPage = () => {
           key={i}
           ref={bgRefs[i]}
           className="absolute inset-0 h-full w-full"
-          style={
-            i === 0
-              ? {
-                  backgroundImage:
-                    "linear-gradient(90.4deg, rgba(0,0,0,1) 10%, rgba(183,72,248,1) 101%)",
-                  opacity: i === currentSection ? 1 : 0,
-                  zIndex: 10 + i,
-                  willChange: "transform",
-                }
-              : i === 1
-              ? {
-                  backgroundImage:
-                    "linear-gradient(86.4deg, rgba(0,0,0,1) 11.7%, rgba(94,85,247,1) 115.6%)",
-                  opacity: i === currentSection ? 1 : 0,
-                  zIndex: 10 + i,
-                  willChange: "transform",
-                }
-              : i === 2
-              ? {
-                  backgroundImage:
-                    "linear-gradient(88.4deg, rgba(29,29,29,1) 10.8%, rgba(94,224,253,1) 103.8%)",
-                  opacity: i === currentSection ? 1 : 0,
-                  zIndex: 10 + i,
-                  willChange: "transform",
-                }
-              : i === 3
-              ? {
-                  backgroundImage:
-                    "linear-gradient(92.4deg, rgba(0,0,0,1) 10.2%, rgba(16,243,192,1) 102.6%)",
-                  opacity: i === currentSection ? 1 : 0,
-                  zIndex: 10 + i,
-                  willChange: "transform",
-                }
-              : {
-                  backgroundColor: section.color,
-                  opacity: i === currentSection ? 1 : 0,
-                  zIndex: 10 + i,
-                  willChange: "transform",
-                }
-          }
+          style={{
+            backgroundImage: section.gradient,
+            opacity: i === currentSection ? 1 : 0,
+            zIndex: 10 + i,
+            willChange: "transform",
+          }}
         />
       ))}
 

@@ -1,12 +1,14 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import { ChevronUp, ChevronDown } from "lucide-react";
+import { IconChevronUp, IconChevronDown } from "@tabler/icons-react";
 import gsap from "gsap";
 import Header from "../header";
+import AnimatedTitle from "./AnimatedTitle";
 
 const sections = [
   {
+    id: "section-1",
     color: "#2D9CDB", // quantum-blue
     gradient:
       "linear-gradient(90.4deg, rgba(0,0,0,1) 10%, rgba(183,72,248,1) 101%)",
@@ -18,6 +20,7 @@ const sections = [
       "Event Horizon Tech isn't just a platform—it's a gravitational pull for innovation. From first line of code to global scale, we're your co-pilot.",
   },
   {
+    id: "section-2",
     color: "#9B51E0", // quantum-purple
     gradient:
       "linear-gradient(86.4deg, rgba(0,0,0,1) 11.7%, rgba(94,85,247,1) 115.6%)",
@@ -29,6 +32,7 @@ const sections = [
       "Blazing‑fast loading, silky‑smooth interactions. Our performance‑first approach—via code optimization, responsive frameworks, and lightweight animations—ensures your users get the best experience, no matter the device.",
   },
   {
+    id: "section-3",
     color: "#FF4D8D", // quantum-pink
     gradient:
       "linear-gradient(88.4deg, rgba(29,29,29,1) 10.8%, rgba(94,224,253,1) 103.8%)",
@@ -40,6 +44,7 @@ const sections = [
       "We blend artistic vision with technical precision. From immersive animations to intuitive UI/UX, we create captivating environments that engage users and leave a lasting impact—a hallmark of modern, memorable web design.",
   },
   {
+    id: "section-4",
     color: "#27AE60", // quantum-green
     gradient:
       "linear-gradient(92.4deg, rgba(0,0,0,1) 10.2%, rgba(16,243,192,1) 102.6%)",
@@ -59,6 +64,10 @@ const MainPage = () => {
   const [currentSection, setCurrentSection] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
+  const [targetSection, setTargetSection] = useState(null);
+  const [overlayGradient, setOverlayGradient] = useState(
+    sections[0].overlayGradient
+  );
 
   // Initialize first section properly
   useEffect(() => {
@@ -79,18 +88,20 @@ const MainPage = () => {
 
   // Scroll-jacked animation function
   const animateToSection = useCallback(
-    (targetSection) => {
-      if (isAnimating || targetSection === currentSection) return;
+    (nextSection) => {
+      if (isAnimating || nextSection === currentSection) return;
 
       setIsAnimating(true);
-      const targetColor = sections[targetSection].color;
+      setOverlayGradient(sections[nextSection].overlayGradient);
+      const targetColor = sections[nextSection].color;
       const currentTextRef = textRefs[currentSection];
-      const nextTextRef = textRefs[targetSection];
+      const nextTextRef = textRefs[nextSection];
 
       // Master GSAP timeline for the entire transition
       const tl = gsap.timeline({
         onComplete: () => {
           setIsAnimating(false);
+          setCurrentSection(nextSection);
         },
       });
 
@@ -99,11 +110,11 @@ const MainPage = () => {
         gsap.set(el, { opacity: i === currentSection ? 1 : 0 });
       });
 
-      // 1. Prepare overlay and show it (set to target section's overlayGradient)
+      // 1. Prepare overlay and show it (set to target section's background gradient)
       tl.set(overlayRef.current, {
         x: "100%",
         display: "block",
-        backgroundImage: sections[targetSection].overlayGradient,
+        backgroundImage: sections[nextSection].gradient,
       });
 
       // Force browser to reflow overlay layer BEFORE continuing animation
@@ -119,21 +130,24 @@ const MainPage = () => {
       // 3. Fade out current text block
       tl.to(currentTextRef.current, { opacity: 0, duration: 0.3 });
 
-      // 4. Switch content and background while overlay is fully covering
+      // 4. Switch background and slide overlay out simultaneously
       tl.add(() => {
-        setCurrentSection(targetSection);
         // Immediately set new background to visible, all others to 0
         gsap.set(bgRefs, (el, i) => {
-          gsap.set(el, { opacity: i === targetSection ? 1 : 0 });
+          gsap.set(el, { opacity: i === nextSection ? 1 : 0 });
         });
       });
 
       // 5. Slide overlay out to left (reveals new content)
-      tl.to(overlayRef.current, {
-        x: "-100%",
-        duration: 0.6,
-        ease: "power2.inOut",
-      });
+      tl.to(
+        overlayRef.current,
+        {
+          x: "-100%",
+          duration: 0.6,
+          ease: "power2.inOut",
+        },
+        "-=0.01"
+      ); // Start immediately after background switch
 
       // 6. Hide overlay
       tl.set(overlayRef.current, { display: "none" });
@@ -213,7 +227,7 @@ const MainPage = () => {
         style={{
           display: "none",
           willChange: "transform",
-          backgroundImage: sections[currentSection].overlayGradient,
+          backgroundImage: overlayGradient,
         }}
       />
 
@@ -232,30 +246,54 @@ const MainPage = () => {
         />
       ))}
 
-      {/* Separate fixed text blocks - one per section */}
+      {/* Separate fixed text blocks - render all, but only current is visible/selectable */}
       {sections.map((section, index) => (
         <div
-          key={index}
+          key={section.id}
+          id={section.id}
           ref={textRefs[index]}
-          className="fixed top-0 left-0 w-full h-full z-[150] flex items-center justify-center text-white pointer-events-none"
+          className={`fixed top-0 left-0 w-full h-full z-[150] flex items-center justify-center text-white ${
+            index === currentSection
+              ? "pointer-events-auto"
+              : "pointer-events-none"
+          }`}
           style={{
             willChange: "transform",
             opacity: index === currentSection ? 1 : 0,
           }}
         >
-          <div className="text-center max-w-4xl px-4 pt-20">
-            <h1 className="text-5xl md:text-6xl font-earthOrbiter mb-6 leading-tight">
-              {section.title}
-            </h1>
-            {section.subtitle && (
-              <h2 className="text-2xl md:text-3xl font-semibold mb-6">
-                {section.subtitle}
-              </h2>
-            )}
-            <p className="text-xl md:text-2xl leading-relaxed max-w-3xl mx-auto">
-              {section.description}
-            </p>
-          </div>
+          {index === 0 ? (
+            <div className="flex justify-around ">
+              <div className="text-center max-w-4xl px-4 pt-20 mx-auto bg-black/30 rounded-2xl shadow-lg backdrop-blur-md  p-8">
+                <AnimatedTitle text={sections[0].title} />
+                {sections[0].subtitle && (
+                  <h2 className="text-2xl md:text-3xl font-semibold mb-6">
+                    {sections[0].subtitle}
+                  </h2>
+                )}
+                <p className="text-xl md:text-2xl leading-relaxed max-w-3xl mx-auto">
+                  {sections[0].description}
+                </p>
+              </div>
+              <div>
+                <p>hi</p>
+              </div>
+            </div>
+          ) : (
+            <div className="text-center max-w-4xl px-4 pt-20">
+              <h1 className="text-5xl md:text-6xl font-earthOrbiter mb-6 leading-tight">
+                {sections[index].title}
+              </h1>
+              {sections[index].subtitle && (
+                <h2 className="text-2xl md:text-3xl font-semibold mb-6">
+                  {sections[index].subtitle}
+                </h2>
+              )}
+              <p className="text-xl md:text-2xl leading-relaxed max-w-3xl mx-auto">
+                {sections[index].description}
+              </p>
+            </div>
+          )}
         </div>
       ))}
 
@@ -269,7 +307,7 @@ const MainPage = () => {
                        transition-all duration-300 hover:scale-110 active:scale-95
                        disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <ChevronUp size={24} />
+            <IconChevronUp size={24} />
           </button>
           <button
             onClick={() => handleNavigation(1)}
@@ -278,7 +316,7 @@ const MainPage = () => {
                        transition-all duration-300 hover:scale-110 active:scale-95
                        disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <ChevronDown size={24} />
+            <IconChevronDown size={24} />
           </button>
         </div>
       </div>

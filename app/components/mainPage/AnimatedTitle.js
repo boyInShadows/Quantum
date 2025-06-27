@@ -9,15 +9,14 @@ const AnimatedTitle = ({ text }) => {
     const letters = containerRef.current.querySelectorAll(".animated-letter");
     gsap.from(letters, {
       opacity: 0,
-      x: -40,
-      rotation: 0,
-      scale: 1,
-      ease: "power3.out",
+      x: -60,
+      // Only animate opacity for a subtle sparkle effect
+      ease: "power1.out",
       stagger: {
         each: 0.03,
         from: "random",
       },
-      duration: 1.1,
+      duration: 0.7,
     });
   }, [text]);
 

@@ -15,7 +15,7 @@ const sections = [
     overlayGradient:
       "linear-gradient(-90.4deg, rgba(0,0,0,1) 10%, rgba(183,72,248,1) 101%)",
     title: "Beyond the Event Horizon: Build the Future",
-    subtitle: "Welcome to Quantum Sector",
+    subtitle: "Welcome to Event Horizon Tech",
     description:
       "Event Horizon Tech isn't just a platform—it's a gravitational pull for innovation. From first line of code to global scale, we're your co-pilot.",
   },
@@ -112,11 +112,6 @@ const MainPage = () => {
     }
   }, [isInitialized, textRefs, bgRefs]);
 
-  // Debug: Log when currentSection changes
-  useEffect(() => {
-    console.log("🔄 Current section changed to:", currentSection);
-  }, [currentSection]);
-
   // Enhanced text animation function
   const animateTextIn = (textRef) => {
     if (!textRef.current) return;
@@ -194,33 +189,19 @@ const MainPage = () => {
   const animateToSection = useCallback(
     async (nextSection) => {
       if (isAnimating || nextSection === currentSection) return;
-      console.log(
-        "🎯 ANIMATION START: From section",
-        currentSection,
-        "to",
-        nextSection
-      );
-      console.log(
-        "🎯 CURRENT SECTION GRADIENT:",
-        sections[currentSection].gradient
-      );
-      console.log("🎯 NEXT SECTION GRADIENT:", sections[nextSection].gradient);
       setIsAnimating(true);
 
       const currentTextRef = textRefs[currentSection];
       const nextTextRef = textRefs[nextSection];
 
       // 1. Set overlay to next section's gradient, off-screen right
-      console.log("🎯 STEP 1: Setting overlay initial state");
       gsap.set(overlayRef.current, {
         x: "100%",
         display: "block",
         backgroundImage: sections[nextSection].overlayGradient,
       });
-      console.log("🎯 OVERLAY SET TO:", sections[nextSection].overlayGradient);
 
       // 2. Slide overlay in
-      console.log("🎯 STEP 2: Starting overlay slide in");
       await gsap.to(overlayRef.current, {
         x: "0%",
         duration: 0.5,
@@ -228,16 +209,7 @@ const MainPage = () => {
       });
 
       // 3. Overlay slide in completed - NOW switch background opacity
-      console.log("🎯 STEP 3: Overlay slide in completed");
-      const overlayGradientAfterSlideIn = getComputedStyle(
-        overlayRef.current
-      ).background;
-      console.log(
-        `🎯 OVERLAY GRADIENT AFTER SLIDE IN: ${overlayGradientAfterSlideIn}`
-      );
-
       // 4. Switch background opacity DURING overlay slide-in (not after)
-      console.log("🎯 STEP 4: Switching background opacity");
 
       // Use direct DOM manipulation instead of GSAP for opacity
       if (bgRefs[currentSection].current) {
@@ -247,20 +219,7 @@ const MainPage = () => {
         bgRefs[nextSection].current.style.opacity = "1";
       }
 
-      // Log all background gradients after the switch
-      console.log("🎯 BACKGROUND GRADIENTS AFTER SWITCH:");
-      bgRefs.forEach((ref, index) => {
-        if (ref.current) {
-          const gradient = getComputedStyle(ref.current).background;
-          const opacity = getComputedStyle(ref.current).opacity;
-          console.log(
-            `  Background ${index}: gradient = ${gradient}, opacity = ${opacity}`
-          );
-        }
-      });
-
       // 5. Start text animations
-      console.log("🎯 STEP 5: Starting text animations");
 
       // Animate current text out
       if (currentTextRef.current) {
@@ -273,31 +232,10 @@ const MainPage = () => {
       }
 
       // 6. Text animations completed
-      console.log("🎯 STEP 6: Text animations completed");
 
       // 7. Before overlay slide out
-      console.log("🎯 STEP 7: Before overlay slide out");
-      const overlayGradientBeforeSlideOut = getComputedStyle(
-        overlayRef.current
-      ).background;
-      console.log(
-        `🎯 OVERLAY GRADIENT BEFORE SLIDE OUT: ${overlayGradientBeforeSlideOut}`
-      );
-
-      // Log all background gradients before slide out
-      console.log("🎯 BACKGROUND GRADIENTS BEFORE SLIDE OUT:");
-      bgRefs.forEach((ref, index) => {
-        if (ref.current) {
-          const gradient = getComputedStyle(ref.current).background;
-          const opacity = getComputedStyle(ref.current).opacity;
-          console.log(
-            `  Background ${index}: gradient = ${gradient}, opacity = ${opacity}`
-          );
-        }
-      });
 
       // 8. Start overlay slide out
-      console.log("🎯 STEP 8: Starting overlay slide out");
       await gsap.to(overlayRef.current, {
         x: "-100%",
         duration: 0.5,
@@ -305,24 +243,6 @@ const MainPage = () => {
       });
 
       // 9. Overlay slide out completed
-      console.log("🎯 STEP 9: Overlay slide out completed");
-      const finalOverlayGradient = getComputedStyle(
-        overlayRef.current
-      ).background;
-      console.log(`🎯 FINAL OVERLAY GRADIENT: ${finalOverlayGradient}`);
-
-      // Check what gradient is visible behind the overlay
-      console.log("🎯 VISIBLE BACKGROUND AFTER SLIDE OUT:");
-      bgRefs.forEach((ref, index) => {
-        if (ref.current) {
-          const gradient = getComputedStyle(ref.current).background;
-          const opacity = getComputedStyle(ref.current).opacity;
-          const visibility = getComputedStyle(ref.current).visibility;
-          console.log(
-            `  Background ${index}: gradient = ${gradient}, opacity = ${opacity}, visibility = ${visibility}`
-          );
-        }
-      });
 
       // Reset overlay for next transition
       gsap.set(overlayRef.current, {
@@ -332,7 +252,6 @@ const MainPage = () => {
 
       // 10. Update current section
       setCurrentSection(nextSection);
-      console.log("🎯 ANIMATION COMPLETED");
 
       setIsAnimating(false);
     },
@@ -490,20 +409,20 @@ const MainPage = () => {
           <button
             onClick={() => handleNavigation(-1)}
             disabled={isAnimating}
-            className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-4 rounded-full
+            className=" backdrop-blur-sm text-white p-4 rounded-full
                        transition-all duration-300 hover:scale-110 active:scale-95
                        disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <IconChevronUp size={24} />
+            <IconChevronUp size={44} />
           </button>
           <button
             onClick={() => handleNavigation(1)}
             disabled={isAnimating}
-            className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-4 rounded-full
+            className=" backdrop-blur-sm text-white p-4 rounded-full
                        transition-all duration-300 hover:scale-110 active:scale-95
                        disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <IconChevronDown size={24} />
+            <IconChevronDown size={44} />
           </button>
         </div>
       </div>

@@ -1,10 +1,31 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import { IconChevronUp, IconChevronDown } from "@tabler/icons-react";
+import Image from "next/image";
+
+// Animation
 import gsap from "gsap";
+
+// Components
 import Header from "../header";
+import Footer from "../footer";
 import AnimatedTitle from "./AnimatedTitle";
+
+// Icons
+import {
+  IconChevronUp,
+  IconChevronDown,
+  IconCircleFilled,
+} from "@tabler/icons-react";
+
+// Images
+import Earth from "@/public/Images/orbit.png";
+import CodeSvg from "@/public/images/code.svg";
+import Img1 from "@/public/images/section2/1.jpg";
+import Img2 from "@/public/images/section2/2.jpg";
+import Img3 from "@/public/images/section2/3.jpg";
+import Img4 from "@/public/images/section2/4.jpg";
+import Img5 from "@/public/images/section2/5.jpg";
 
 const sections = [
   {
@@ -14,10 +35,11 @@ const sections = [
       "linear-gradient(90.4deg, rgba(0,0,0,1) 10%, rgba(183,72,248,1) 101%)",
     overlayGradient:
       "linear-gradient(-90.4deg, rgba(0,0,0,1) 10%, rgba(183,72,248,1) 101%)",
-    title: "Beyond the Event Horizon: Build the Future",
-    subtitle: "Welcome to Event Horizon Tech",
+    title: "The Event Horizon: Build the Future",
+    subtitle:
+      "Event Horizon Tech is your gateway to turning bold ideas into scalable applications and startups. We provide the tools, frameworks, and expertise to help innovators cross the threshold from concept to reality",
     description:
-      "Event Horizon Tech isn't just a platform—it's a gravitational pull for innovation. From first line of code to global scale, we're your co-pilot.",
+      "Whether you're a solo developer or a growing team, our platform accelerates your journey into the future of technology.",
   },
   {
     id: "section-2",
@@ -26,10 +48,11 @@ const sections = [
       "linear-gradient(86.4deg, rgba(0,0,0,1) 11.7%, rgba(94,85,247,1) 115.6%)",
     overlayGradient:
       "linear-gradient(-86.4deg, rgba(0,0,0,1) 11.7%, rgba(94,85,247,1) 115.6%)",
-    title: "Lightning-Fast Performance",
-    subtitle: "",
+    title: "prjoect that define the futuer",
+    subtitle:
+      "From AI-driven applications to scalable SaaS platforms, Event Horizon Tech provides cutting-edge solutions tailored for tomorrow's startups.",
     description:
-      "Blazing‑fast loading, silky‑smooth interactions. Our performance‑first approach—via code optimization, responsive frameworks, and lightweight animations—ensures your users get the best experience, no matter the device.",
+      "Explore our core features, case studies, and success stories to see how we help visionaries bring their ideas to life.",
   },
   {
     id: "section-3",
@@ -338,70 +361,358 @@ const MainPage = () => {
         />
       ))}
 
-      {/* Separate fixed text blocks - render all, but only current is visible/selectable */}
-      {sections.map((section, index) => (
-        <div
-          key={section.id}
-          id={section.id}
-          ref={textRefs[index]}
-          className={`fixed top-0 left-0 w-full h-full z-[150] flex items-center justify-center text-white ${
-            index === currentSection
-              ? "pointer-events-auto"
-              : "pointer-events-none"
-          }`}
-          style={{
-            willChange: "transform",
-          }}
-        >
-          {index === 0 ? (
-            <div className="flex justify-around ">
-              <div className="text-center max-w-4xl px-4 pt-20 mx-auto bg-black/30 rounded-2xl shadow-lg backdrop-blur-md  p-8">
-                <AnimatedTitle text={sections[0].title} />
-                {sections[0].subtitle && (
-                  <h2
-                    className="text-h3 font-semibold mb-6"
-                    style={{ opacity: 1, transform: "translateY(20px)" }}
+      {/* Only render the current section's content */}
+      <div
+        className="fixed top-0 left-0 w-full h-full z-[150] flex items-center text-white"
+        style={{ willChange: "transform" }}
+      >
+        {currentSection === 0 && (
+          // Section 1 JSX
+          <div className="relative w-full h-full">
+            <div
+              className="
+      absolute
+      left-[15vw]
+      top-1/2
+      -translate-y-1/2
+      flex flex-col items-center justify-between
+      h-[85vh]
+      z-10
+    "
+            >
+              {["AHEAD", "beyond", "JOURNEY", "THE"].map((word, i) => {
+                if (word === "beyond") {
+                  return (
+                    <>
+                      <span
+                        key={word}
+                        className="text-[4rem] font-earthOrbiter my-0 ml-[-2rem] mt-[-10rem] mb-[-10rem]"
+                        style={{
+                          writingMode: "unset",
+                          transform: "none",
+                        }}
+                      >
+                        {`BEY`}
+                        <span className="text-[#9217ae]">o</span>
+                        {`ND`}
+                      </span>
+                      <div className="absolute bottom-[20vh] z-100">
+                        <svg width="0" height="0">
+                          <defs>
+                            <linearGradient
+                              id="iconGradient"
+                              x1="0%"
+                              y1="0%"
+                              x2="100%"
+                              y2="0%"
+                            >
+                              <stop offset="10%" stopColor="rgba(0,0,0,1)" />
+                              <stop
+                                offset="101%"
+                                stopColor="rgba(183,72,248,1)"
+                              />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                        <IconCircleFilled
+                          size={24}
+                          style={{
+                            fill: "url(#iconGradient)",
+                          }}
+                        />
+                      </div>
+
+                      {/* Center and Right Circles */}
+                      <div className="absolute top-[20vh] left-[20vw] z-100">
+                        <IconCircleFilled
+                          size={24}
+                          style={{ fill: "url(#iconGradient)", opacity: 0.6 }}
+                        />
+                      </div>
+
+                      <div className="absolute top-[10vh] left-[60vw] z-100">
+                        <IconCircleFilled
+                          size={24}
+                          style={{ fill: "url(#iconGradient)", opacity: 0.8 }}
+                        />
+                      </div>
+
+                      <div className="absolute top-[70vh] left-[55vw] z-100">
+                        <IconCircleFilled
+                          size={24}
+                          style={{ fill: "url(#iconGradient)", opacity: 0.4 }}
+                        />
+                      </div>
+
+                      <div className="absolute top-[40vh] left-[65vw] z-100">
+                        <IconCircleFilled
+                          size={24}
+                          style={{ fill: "url(#iconGradient)", opacity: 0.7 }}
+                        />
+                      </div>
+
+                      <div className="absolute top-[60vh] left-[72vw] z-100">
+                        <IconCircleFilled
+                          size={24}
+                          style={{ fill: "url(#iconGradient)", opacity: 0.5 }}
+                        />
+                      </div>
+                    </>
+                  );
+                }
+                return (
+                  <span
+                    key={word}
+                    className="text-[3.5rem] opacity-50"
+                    style={{
+                      writingMode: "vertical-rl",
+                      transform: "rotate(180deg)",
+                    }}
                   >
-                    {sections[0].subtitle}
-                  </h2>
-                )}
-                <p
-                  className="text-lead leading-relaxed max-w-3xl mx-auto"
-                  style={{ opacity: 1, transform: "translateY(20px)" }}
-                >
-                  {sections[0].description}
-                </p>
-              </div>
-              <div>
-                <p>hi</p>
-              </div>
+                    {word}
+                  </span>
+                );
+              })}
             </div>
-          ) : (
-            <div className="text-center max-w-4xl px-4 pt-20">
-              <h1
-                className="text-display-xl font-earthOrbiter mb-6 leading-tight"
-                style={{ opacity: 0, transform: "translateY(20px)" }}
-              >
-                {sections[index].title}
-              </h1>
-              {sections[index].subtitle && (
-                <h2
-                  className="text-h3 font-semibold mb-6"
-                  style={{ opacity: 0, transform: "translateY(20px)" }}
-                >
-                  {sections[index].subtitle}
-                </h2>
-              )}
-              <p
-                className="text-lead leading-relaxed max-w-3xl mx-auto"
-                style={{ opacity: 0, transform: "translateY(20px)" }}
-              >
-                {sections[index].description}
+            <div className="flex flex-col justify-between gap-y-6 absolute left-[24vw] top-[38vh] z-10">
+              <p className="max-w-3xl text-[1.5rem] font-bold">
+                {sections[0].title}
+              </p>
+              <p className="max-w-3xl text-[1.25rem]">{sections[0].subtitle}</p>
+              <p className="max-w-3xl text-[1.25rem]">
+                {sections[0].description}
               </p>
             </div>
-          )}
-        </div>
-      ))}
+            {/* <div className="flex justify-center items-center"> */}
+            {/* center */}
+            <div className="absolute inset-0 flex left-[22.5vw] pointer-events-none z-0">
+              <Image
+                src={Earth}
+                alt="Earth"
+                // layout="fill"
+                width={1300}
+                height={1300}
+                className="object-contain animate-spin"
+                style={{
+                  animationDuration: "20s",
+                  animationTimingFunction: "linear",
+                  animationIterationCount: "infinite",
+                }}
+                priority
+              />
+            </div>
+            <div>
+              <Image
+                src={CodeSvg}
+                alt="Earth"
+                width={450}
+                height={450}
+                className=" object-contain absolute top-[50vh] right-[2.5vw]  -translate-y-1/2"
+                priority
+              />
+            </div>
+            {/* </div> */}
+          </div>
+        )}
+        {currentSection === 1 && (
+          // Section 2 JSX
+          <div>
+            <div className="flex w-full h-full pl-[10rem] mb-[5rem]">
+              {/* Left: 1/3 */}
+              <div className="flex items-center justify-center basis-2/5 max-w-2/5 h-full">
+                <div className="relative w-[350px] h-[350px] md:w-[420px] md:h-[420px]">
+                  {/* Gradient border right */}
+                  <div
+                    className="absolute top-0 right-0 h-full w-[1px] z-20"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, #b748f8 0%, #5e55f7 50%, #5ee0fd 100%)",
+                    }}
+                  />
+
+                  {/* Main (largest) image */}
+                  <Image
+                    src={Img4}
+                    alt="Main"
+                    className="absolute top-[-5%] left-[50%] -translate-x-1/2 w-[220px] h-[400px] rounded-2xl object-cover shadow-lg z-10"
+                  />
+                  {/* Top left small image */}
+                  <Image
+                    src={Img2}
+                    alt="Top Left"
+                    className="absolute top-[30%] left-[-15%] w-[130px] h-[130px] rounded-xl object-cover shadow-md"
+                  />
+                  {/* Bottom left image */}
+                  <Image
+                    src={Img3}
+                    alt="Bottom Left"
+                    className="absolute bottom-[-10%] left-[-5%] w-[150px] h-[150px] rounded-xl object-cover shadow-md"
+                  />
+                  {/* Bottom center small image */}
+                  <Image
+                    src={Img1}
+                    alt="Bottom Center"
+                    className="absolute bottom-[-10%] left-[40%] -translate-x-1/2 w-[60px] h-[60px] rounded-lg object-cover shadow"
+                  />
+                  {/* Bottom right image */}
+                  <Image
+                    src={Img5}
+                    alt="Bottom Right"
+                    className="absolute bottom-[0%] right-[5%] w-[190px] h-[190px] rounded-2xl object-cover shadow-lg z-20"
+                  />
+                </div>
+              </div>
+              {/* Right: 2/3 */}
+              <div className="flex flex-col justify-center gap-y-6 basis-3/5 max-w-3/5 h-full ">
+                <button
+                  className="max-w-[20%] rounded-[1rem] font-earthOrbiter "
+                  style={{
+                    background:
+                      "linear-gradient(90.4deg, rgba(94,85,247,1) 10%, rgba(183,72,248,1) 101%)",
+                  }}
+                >
+                  tab me
+                </button>
+                <p className="max-w-[50%] text-h3 font-earthOrbiter font-bold">
+                  {sections[1].title}
+                </p>
+                <p className="max-w-[80%] text-body-body">
+                  {sections[1].subtitle}
+                </p>
+                <p className="max-w-[80%] text-body-body">
+                  {sections[1].description}
+                </p>
+                <button
+                  className="max-w-[20%] h-[3rem] rounded-[1.5rem]  mt-[5rem]"
+                  style={{
+                    background:
+                      "linear-gradient(90.4deg, rgba(94,85,247,1) 10%, rgba(183,72,248,1) 101%)",
+                  }}
+                >
+                  More Info
+                </button>
+              </div>
+            </div>
+            <div className="flex justify-end items-start gap-x-6 mb-[-10rem] mr-[-15rem]">
+              <div
+                className="relative w-[7rem] h-[5rem] rounded-[1rem] text-center flex flex-col items-center justify-center"
+                style={{
+                  background: "linear-gradient(180deg, #000000, #200687)",
+                }}
+              >
+                <Image
+                  src={Img1}
+                  alt="1"
+                  width={50}
+                  height={50}
+                  className="absolute left-[25%] top-[-35%] rounded-[50rem] w-[50px] h-[50px]"
+                />
+                <p className="text-body-xs">IDEA</p>
+                <p className="font-earthOrbiter opacity-25">0.1</p>
+              </div>
+              <div
+                className="relative w-[7rem] h-[5rem] rounded-[1rem] text-center flex flex-col items-center justify-center"
+                style={{
+                  background: "linear-gradient(180deg, #000000, #200687)",
+                }}
+              >
+                <Image
+                  src={Img1}
+                  alt="1"
+                  width={50}
+                  height={50}
+                  className="absolute left-[25%] top-[-35%] rounded-[50rem] w-[50px] h-[50px]"
+                />
+                <p className="text-body-xs">DEVELOP</p>
+                <p className="font-earthOrbiter opacity-25">0.2</p>
+              </div>
+              <div
+                className="relative w-[7rem] h-[5rem] rounded-[1rem] text-center flex flex-col items-center justify-center"
+                style={{
+                  background: "linear-gradient(180deg, #000000, #200687)",
+                }}
+              >
+                <Image
+                  src={Img1}
+                  alt="1"
+                  width={50}
+                  height={50}
+                  className="absolute left-[25%] top-[-35%] rounded-[50rem] w-[50px] h-[50px]"
+                />
+                <p className="text-body-xs">LUNCH</p>
+                <p className="font-earthOrbiter opacity-25">0.3</p>
+              </div>
+              <div
+                className="relative w-[7rem] h-[5rem] rounded-[1rem] text-center flex flex-col items-center justify-center"
+                style={{
+                  background: "linear-gradient(180deg, #000000, #200687)",
+                }}
+              >
+                <Image
+                  src={Img1}
+                  alt="1"
+                  width={50}
+                  height={50}
+                  className="absolute left-[25%] top-[-35%] rounded-[50rem] w-[50px] h-[50px]"
+                />
+                <p className="text-body-xs">MAINTENANCE</p>
+                <p className="font-earthOrbiter opacity-25">0.4</p>
+              </div>
+            </div>
+          </div>
+        )}
+        {currentSection === 2 && (
+          // Section 3 JSX
+          <div>
+            <h1
+              className="text-display-xl font-earthOrbiter mb-6 leading-tight"
+              style={{ opacity: 0, transform: "translateY(20px)" }}
+            >
+              {sections[2].title}
+            </h1>
+            {sections[2].subtitle && (
+              <h2
+                className="text-h3 font-semibold mb-6"
+                style={{ opacity: 0, transform: "translateY(20px)" }}
+              >
+                {sections[2].subtitle}
+              </h2>
+            )}
+            <p
+              className="text-lead leading-relaxed max-w-3xl mx-auto"
+              style={{ opacity: 0, transform: "translateY(20px)" }}
+            >
+              {sections[2].description}
+            </p>
+          </div>
+        )}
+        {currentSection === 3 && (
+          // Section 4 JSX
+          <div>
+            <h1
+              className="text-display-xl font-earthOrbiter mb-6 leading-tight"
+              style={{ opacity: 0, transform: "translateY(20px)" }}
+            >
+              {sections[3].title}
+            </h1>
+            {sections[3].subtitle && (
+              <h2
+                className="text-h3 font-semibold mb-6"
+                style={{ opacity: 0, transform: "translateY(20px)" }}
+              >
+                {sections[3].subtitle}
+              </h2>
+            )}
+            <p
+              className="text-lead leading-relaxed max-w-3xl mx-auto"
+              style={{ opacity: 0, transform: "translateY(20px)" }}
+            >
+              {sections[3].description}
+            </p>
+          </div>
+        )}
+      </div>
+      {/* End of section rendering */}
 
       {/* Navigation controls */}
       <div className="fixed z-[200] right-6 top-1/2 transform -translate-y-1/2 pointer-events-none">
@@ -442,6 +753,7 @@ const MainPage = () => {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

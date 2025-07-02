@@ -9,13 +9,13 @@ import {
 
 const Header = () => {
   return (
-    <header className="fixed top-0 w-full z-[300] backdrop-blur-md">
+    <header className="fixed top-0 w-full z-[300] ">
       <div className="py-4 px-5">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-3">
             <Image
-              src="/logo/EHTLogo.svg"
+              src="images/logo/EHTLogo.svg"
               alt="EHT Logo"
               width={80}
               height={80}
@@ -66,7 +66,7 @@ const Header = () => {
                 />
               </a>
             </div>
-            <button className="bg-[#18122B] text-white px-3 py-1 rounded-md text-xs font-normal whitespace-nowrap transition-colors duration-200 hover:bg-[#251a40] focus:outline-none focus:ring-2 focus:ring-white/20">
+            <button className="bg-white/40 text-white px-3 py-1 rounded-[1rem] text-xs font-normal whitespace-nowrap transition-colors duration-200 hover:bg-[#251a40] focus:outline-none focus:ring-2 focus:ring-white/20">
               lets chat
             </button>
           </div>

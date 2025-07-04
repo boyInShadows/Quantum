@@ -700,12 +700,12 @@ const MainPage = () => {
         )}
         {currentSection === 3 && (
           // Section 4 JSX
-          <div className="flex mx-auto mb-[15vh] w-[60vw] gap-x-[5rem]">
+          <div className="flex mx-auto lg:mb-[15vh] md:mt-[10vh] lg:w-[60vw] md:w-[80vw] gap-x-[5rem]">
             {/* left */}
             <div className="flex flex-col items-center gap-y-[1rem] mb-[-3rem]">
               <div className="w-[2rem] h-[2rem] rounded-[1rem] bg-white" />
               <div
-                className="w-[2px] h-[20rem] rounded-[1rem]"
+                className="w-[2px] lg:h-[20rem] md:h-[20rem] rounded-[1rem]"
                 style={{
                   background: "linear-gradient(180deg, #5ce1e6,#8c52ff )",
                 }}
@@ -714,34 +714,31 @@ const MainPage = () => {
             </div>
             {/* right */}
             <div className="flex flex-col gap-y-2 mx-auto">
-              <h1 className="text-[3rem] font-earthOrbiter ">
+              <h1 className="lg:text-[3rem] md:text-[2.5rem] font-earthOrbiter ">
                 {sections[3].subtitle}
               </h1>
-              <h1 className="text-[4rem] text-[#9217ae]">
-                {" "}
+              <h1 className="lg:text-[4rem] md:text-[3.5rem] text-[#9217ae]">
                 {sections[3].title}
               </h1>
-              <p className="text-[1.5rem] max-w-[70%]">
-                {" "}
-                {sections[3].description}{" "}
+              <p className="lg:text-[1.5rem] md:text-[1.25rem] lg:max-w-[70%]">
+                {sections[3].description}
               </p>
-              <p className="text-[1.5rem] max-w-[70%]">
-                {" "}
-                {sections[3].description2}{" "}
+              <p className="lg:text-[1.5rem] md:text-[1.25rem] lg:max-w-[70%]">
+                {sections[3].description2}
               </p>
               <div className="flex items-center gap-x-8 mt-[2vh]">
-                <button className="w-[7vw] h-[4vh] rounded-[1rem] bg-[#9217ae] text-white">
+                <button className="lg:w-[8vw] lg:h-[4vh] md:w-[12vw] md:h-[4vh] rounded-[1rem] bg-[#9217ae] text-white">
                   learn more
                 </button>
               </div>
             </div>
-            <Image
+            {/* <Image
               src={Section4}
               alt="Section 4"
               width={1130}
               height={1025}
               className="absolute right-[5%] top-[5%] object-contain"
-            />
+            /> */}
           </div>
         )}
       </div>

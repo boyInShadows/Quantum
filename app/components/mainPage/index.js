@@ -10,6 +10,7 @@ import gsap from "gsap";
 import Header from "../header";
 import Footer from "../footer";
 import AnimatedTitle from "./AnimatedTitle";
+import EarthWithStars from "./EarthWithStars";
 
 // Icons
 import {
@@ -26,6 +27,7 @@ import Img2 from "@/public/images/section2/2.jpg";
 import Img3 from "@/public/images/section2/3.jpg";
 import Img4 from "@/public/images/section2/4.jpg";
 import Img5 from "@/public/images/section2/5.jpg";
+import Section4 from "@/public/Images/section4.svg";
 
 const sections = [
   {
@@ -70,13 +72,14 @@ const sections = [
     id: "section-4",
     color: "#27AE60", // quantum-green
     gradient:
-      "linear-gradient(92.4deg, rgba(0,0,0,1) 10.2%, rgba(16,243,192,1) 102.6%)",
+      "linear-gradient( 89.5deg,  rgba(0,19,107,1) -1.2%, rgba(141,7,89,1) 101.9% );",
     overlayGradient:
-      "linear-gradient(-92.4deg, rgba(0,0,0,1) 10.2%, rgba(16,243,192,1) 102.6%)",
-    title: "Modern Web Development",
-    subtitle: "",
+      "linear-gradient( 89.5deg,  rgba(0,19,107,1) -1.2%, rgba(141,7,89,1) 101.9% );",
+    title: "Event Horizon Tech",
+    subtitle: "Why We Built",
     description:
-      "Built for today—and ready for tomorrow. We leverage the latest ecosystems (React, Next.js, Tailwind, GSAP) and best practices (component-first architecture, scalable design systems, performance testing) to ensure your web presence evolves with your business.",
+      "The path to innovation is never static. Here’s a glimpse into our roadmap upcoming features,partnerships,and milestones that will redefine how startups are built. ",
+    description2: "Join us as we push the boundaries of technology.",
   },
 ];
 
@@ -458,17 +461,10 @@ const MainPage = () => {
                         />
                       </div>
 
-                      <div className="absolute top-[40vh] left-[65vw] z-100">
+                      <div className="absolute top-[40vh] left-[75vw] z-100">
                         <IconCircleFilled
                           size={24}
                           style={{ fill: "url(#iconGradient)", opacity: 0.7 }}
-                        />
-                      </div>
-
-                      <div className="absolute top-[60vh] left-[72vw] z-100">
-                        <IconCircleFilled
-                          size={24}
-                          style={{ fill: "url(#iconGradient)", opacity: 0.5 }}
                         />
                       </div>
                     </>
@@ -506,7 +502,7 @@ const MainPage = () => {
               <div
                 className="relative animate-spin"
                 style={{
-                  animationDuration: "20s",
+                  animationDuration: "40s",
                   animationTimingFunction: "linear",
                   animationIterationCount: "infinite",
                   width: "fit-content",
@@ -514,303 +510,7 @@ const MainPage = () => {
                 }}
               >
                 {/* Earth */}
-                <Image
-                  src={Earth}
-                  alt="Earth"
-                  width={1300}
-                  height={1300}
-                  className="object-contain rounded-full"
-                  priority
-                />
-                {/* SVG star sparkles as city lights */}
-                <svg
-                  width="10"
-                  height="10"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="absolute z-30 star-wiggle"
-                  style={{ top: "32%", left: "44%", animationDelay: "0s" }}
-                >
-                  <defs>
-                    <linearGradient
-                      id="star-gradient-1"
-                      x1="0"
-                      y1="0"
-                      x2="1"
-                      y2="1"
-                    >
-                      <stop offset="0%" stopColor="#fffbe6" />
-                      <stop offset="100%" stopColor="#ffd700" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"
-                    fill="url(#star-gradient-1)"
-                    fillOpacity="0.8"
-                  />
-                </svg>
-                <svg
-                  width="8"
-                  height="8"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="absolute z-30 star-wiggle"
-                  style={{ top: "60%", left: "55%", animationDelay: "0.3s" }}
-                >
-                  <defs>
-                    <linearGradient
-                      id="star-gradient-2"
-                      x1="0"
-                      y1="0"
-                      x2="1"
-                      y2="1"
-                    >
-                      <stop offset="0%" stopColor="#fffbe6" />
-                      <stop offset="100%" stopColor="#ffd700" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"
-                    fill="url(#star-gradient-2)"
-                    fillOpacity="0.7"
-                  />
-                </svg>
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="absolute z-30 star-wiggle"
-                  style={{ top: "40%", left: "60%", animationDelay: "0.6s" }}
-                >
-                  <defs>
-                    <linearGradient
-                      id="star-gradient-3"
-                      x1="0"
-                      y1="0"
-                      x2="1"
-                      y2="1"
-                    >
-                      <stop offset="0%" stopColor="#fffbe6" />
-                      <stop offset="100%" stopColor="#ffd700" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"
-                    fill="url(#star-gradient-3)"
-                    fillOpacity="0.9"
-                  />
-                </svg>
-                <svg
-                  width="7"
-                  height="7"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="absolute z-30 star-wiggle"
-                  style={{ top: "70%", left: "30%", animationDelay: "0.9s" }}
-                >
-                  <defs>
-                    <linearGradient
-                      id="star-gradient-4"
-                      x1="0"
-                      y1="0"
-                      x2="1"
-                      y2="1"
-                    >
-                      <stop offset="0%" stopColor="#fffbe6" />
-                      <stop offset="100%" stopColor="#ffd700" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"
-                    fill="url(#star-gradient-4)"
-                    fillOpacity="0.7"
-                  />
-                </svg>
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="absolute z-30 star-wiggle"
-                  style={{ top: "50%", left: "70%", animationDelay: "1.2s" }}
-                >
-                  <defs>
-                    <linearGradient
-                      id="star-gradient-5"
-                      x1="0"
-                      y1="0"
-                      x2="1"
-                      y2="1"
-                    >
-                      <stop offset="0%" stopColor="#fffbe6" />
-                      <stop offset="100%" stopColor="#ffd700" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"
-                    fill="url(#star-gradient-5)"
-                    fillOpacity="0.9"
-                  />
-                </svg>
-                <svg
-                  width="8"
-                  height="8"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="absolute z-30 star-wiggle"
-                  style={{ top: "20%", left: "60%", animationDelay: "1.5s" }}
-                >
-                  <defs>
-                    <linearGradient
-                      id="star-gradient-6"
-                      x1="0"
-                      y1="0"
-                      x2="1"
-                      y2="1"
-                    >
-                      <stop offset="0%" stopColor="#fffbe6" />
-                      <stop offset="100%" stopColor="#ffd700" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"
-                    fill="url(#star-gradient-6)"
-                    fillOpacity="0.7"
-                  />
-                </svg>
-                <svg
-                  width="10"
-                  height="10"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="absolute z-30 star-wiggle"
-                  style={{ top: "65%", left: "38%", animationDelay: "1.8s" }}
-                >
-                  <defs>
-                    <linearGradient
-                      id="star-gradient-7"
-                      x1="0"
-                      y1="0"
-                      x2="1"
-                      y2="1"
-                    >
-                      <stop offset="0%" stopColor="#fffbe6" />
-                      <stop offset="100%" stopColor="#ffd700" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"
-                    fill="url(#star-gradient-7)"
-                    fillOpacity="0.8"
-                  />
-                </svg>
-                <svg
-                  width="7"
-                  height="7"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="absolute z-30 star-wiggle"
-                  style={{ top: "55%", left: "48%", animationDelay: "2.1s" }}
-                >
-                  <defs>
-                    <linearGradient
-                      id="star-gradient-8"
-                      x1="0"
-                      y1="0"
-                      x2="1"
-                      y2="1"
-                    >
-                      <stop offset="0%" stopColor="#fffbe6" />
-                      <stop offset="100%" stopColor="#ffd700" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"
-                    fill="url(#star-gradient-8)"
-                    fillOpacity="0.7"
-                  />
-                </svg>
-                {/* Additional stars for doubling */}
-                <svg
-                  width="9"
-                  height="9"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="absolute z-30 star-wiggle"
-                  style={{ top: "25%", left: "35%", animationDelay: "0.15s" }}
-                >
-                  <defs>
-                    <linearGradient
-                      id="star-gradient-9"
-                      x1="0"
-                      y1="0"
-                      x2="1"
-                      y2="1"
-                    >
-                      <stop offset="0%" stopColor="#fffbe6" />
-                      <stop offset="100%" stopColor="#ffd700" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"
-                    fill="url(#star-gradient-9)"
-                    fillOpacity="0.7"
-                  />
-                </svg>
-                <svg
-                  width="11"
-                  height="11"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="absolute z-30 star-wiggle"
-                  style={{ top: "75%", left: "60%", animationDelay: "0.45s" }}
-                >
-                  <defs>
-                    <linearGradient
-                      id="star-gradient-10"
-                      x1="0"
-                      y1="0"
-                      x2="1"
-                      y2="1"
-                    >
-                      <stop offset="0%" stopColor="#fffbe6" />
-                      <stop offset="100%" stopColor="#ffd700" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"
-                    fill="url(#star-gradient-10)"
-                    fillOpacity="0.8"
-                  />
-                </svg>
-
-                <svg
-                  width="10"
-                  height="10"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="absolute z-30 star-wiggle"
-                  style={{ top: "80%", left: "50%", animationDelay: "1.05s" }}
-                >
-                  <defs>
-                    <linearGradient
-                      id="star-gradient-12"
-                      x1="0"
-                      y1="0"
-                      x2="1"
-                      y2="1"
-                    >
-                      <stop offset="0%" stopColor="#fffbe6" />
-                      <stop offset="100%" stopColor="#ffd700" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"
-                    fill="url(#star-gradient-12)"
-                    fillOpacity="0.8"
-                  />
-                </svg>
+                <EarthWithStars />
               </div>
             </div>
             <div>
@@ -830,12 +530,12 @@ const MainPage = () => {
           // Section 2 JSX
           <div>
             <div className="flex w-full h-full pl-[10rem] mb-[5rem]">
-              {/* Left: 1/3 */}
+              {/* Left: 2/5 */}
               <div className="flex items-center justify-center basis-2/5 max-w-2/5 h-full">
                 <div className="relative w-[350px] h-[350px] md:w-[420px] md:h-[420px]">
                   {/* Gradient border right */}
                   <div
-                    className="absolute top-0 right-0 h-full w-[1px] z-20"
+                    className="absolute top-0 right-[-5rem] h-[30rem] w-[1px] z-20"
                     style={{
                       background:
                         "linear-gradient(180deg, #b748f8 0%, #5e55f7 50%, #5ee0fd 100%)",
@@ -874,10 +574,10 @@ const MainPage = () => {
                   />
                 </div>
               </div>
-              {/* Right: 2/3 */}
-              <div className="flex flex-col justify-center gap-y-6 basis-3/5 max-w-3/5 h-full ">
+              {/* Right: 3/5 */}
+              <div className="flex flex-col justify-center gap-y-6 basis-3/5 max-w-3/5 h-full pl-[5rem]">
                 <button
-                  className="max-w-[20%] rounded-[1rem] font-earthOrbiter "
+                  className="max-w-[20%] rounded-[1rem] font-earthOrbiter mb-[5rem]"
                   style={{
                     background:
                       "linear-gradient(90.4deg, rgba(94,85,247,1) 10%, rgba(183,72,248,1) 101%)",
@@ -895,7 +595,7 @@ const MainPage = () => {
                   {sections[1].description}
                 </p>
                 <button
-                  className="max-w-[20%] h-[3rem] rounded-[1.5rem]  mt-[5rem]"
+                  className="max-w-[20%] h-[3rem] rounded-[1.5rem]  mt-[2.5rem]"
                   style={{
                     background:
                       "linear-gradient(90.4deg, rgba(94,85,247,1) 10%, rgba(183,72,248,1) 101%)",
@@ -905,7 +605,7 @@ const MainPage = () => {
                 </button>
               </div>
             </div>
-            <div className="flex justify-end items-start gap-x-6 mb-[-10rem] mr-[-15rem]">
+            <div className="flex justify-end items-start gap-x-6 mb-[-7rem] mr-[-15rem]">
               <div
                 className="relative w-[7rem] h-[5rem] rounded-[1rem] text-center flex flex-col items-center justify-center"
                 style={{
@@ -920,7 +620,7 @@ const MainPage = () => {
                   className="absolute left-[25%] top-[-35%] rounded-[50rem] w-[50px] h-[50px]"
                 />
                 <p className="text-body-xs">IDEA</p>
-                <p className="font-earthOrbiter opacity-25">0.1</p>
+                <p className="font-earthOrbiter opacity-55">0.1</p>
               </div>
               <div
                 className="relative w-[7rem] h-[5rem] rounded-[1rem] text-center flex flex-col items-center justify-center"
@@ -936,7 +636,7 @@ const MainPage = () => {
                   className="absolute left-[25%] top-[-35%] rounded-[50rem] w-[50px] h-[50px]"
                 />
                 <p className="text-body-xs">DEVELOP</p>
-                <p className="font-earthOrbiter opacity-25">0.2</p>
+                <p className="font-earthOrbiter opacity-55">0.2</p>
               </div>
               <div
                 className="relative w-[7rem] h-[5rem] rounded-[1rem] text-center flex flex-col items-center justify-center"
@@ -952,7 +652,7 @@ const MainPage = () => {
                   className="absolute left-[25%] top-[-35%] rounded-[50rem] w-[50px] h-[50px]"
                 />
                 <p className="text-body-xs">LUNCH</p>
-                <p className="font-earthOrbiter opacity-25">0.3</p>
+                <p className="font-earthOrbiter opacity-55">0.3</p>
               </div>
               <div
                 className="relative w-[7rem] h-[5rem] rounded-[1rem] text-center flex flex-col items-center justify-center"
@@ -968,7 +668,7 @@ const MainPage = () => {
                   className="absolute left-[25%] top-[-35%] rounded-[50rem] w-[50px] h-[50px]"
                 />
                 <p className="text-body-xs">MAINTENANCE</p>
-                <p className="font-earthOrbiter opacity-25">0.4</p>
+                <p className="font-earthOrbiter opacity-55">0.4</p>
               </div>
             </div>
           </div>
@@ -1000,34 +700,55 @@ const MainPage = () => {
         )}
         {currentSection === 3 && (
           // Section 4 JSX
-          <div>
-            <h1
-              className="text-display-xl font-earthOrbiter mb-6 leading-tight"
-              style={{ opacity: 0, transform: "translateY(20px)" }}
-            >
-              {sections[3].title}
-            </h1>
-            {sections[3].subtitle && (
-              <h2
-                className="text-h3 font-semibold mb-6"
-                style={{ opacity: 0, transform: "translateY(20px)" }}
-              >
+          <div className="flex mx-auto mb-[15vh] w-[60vw] gap-x-[5rem]">
+            {/* left */}
+            <div className="flex flex-col items-center gap-y-[1rem] mb-[-3rem]">
+              <div className="w-[2rem] h-[2rem] rounded-[1rem] bg-white" />
+              <div
+                className="w-[2px] h-[20rem] rounded-[1rem]"
+                style={{
+                  background: "linear-gradient(180deg, #5ce1e6,#8c52ff )",
+                }}
+              />
+              {/* <div className="w-[2rem] h-[2rem] rounded-[1rem] bg-white" /> */}
+            </div>
+            {/* right */}
+            <div className="flex flex-col gap-y-2 mx-auto">
+              <h1 className="text-[3rem] font-earthOrbiter ">
                 {sections[3].subtitle}
-              </h2>
-            )}
-            <p
-              className="text-lead leading-relaxed max-w-3xl mx-auto"
-              style={{ opacity: 0, transform: "translateY(20px)" }}
-            >
-              {sections[3].description}
-            </p>
+              </h1>
+              <h1 className="text-[4rem] text-[#9217ae]">
+                {" "}
+                {sections[3].title}
+              </h1>
+              <p className="text-[1.5rem] max-w-[70%]">
+                {" "}
+                {sections[3].description}{" "}
+              </p>
+              <p className="text-[1.5rem] max-w-[70%]">
+                {" "}
+                {sections[3].description2}{" "}
+              </p>
+              <div className="flex items-center gap-x-8 mt-[2vh]">
+                <button className="w-[7vw] h-[4vh] rounded-[1rem] bg-[#9217ae] text-white">
+                  learn more
+                </button>
+              </div>
+            </div>
+            <Image
+              src={Section4}
+              alt="Section 4"
+              width={1130}
+              height={1025}
+              className="absolute right-[5%] top-[5%] object-contain"
+            />
           </div>
         )}
       </div>
       {/* End of section rendering */}
 
       {/* Navigation controls */}
-      <div className="fixed z-[200] right-6 top-1/2 transform -translate-y-1/2 pointer-events-none">
+      <div className="fixed z-[200] right-0 top-1/2 transform -translate-y-1/2 pointer-events-none">
         <div className="flex flex-col gap-3 pointer-events-auto">
           <button
             onClick={() => handleNavigation(-1)}

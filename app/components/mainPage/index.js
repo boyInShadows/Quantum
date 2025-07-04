@@ -9,7 +9,7 @@ import gsap from "gsap";
 // Components
 import Header from "../header";
 import Footer from "../footer";
-import AnimatedTitle from "./AnimatedTitle";
+// import AnimatedTitle from "./AnimatedTitle";
 import EarthWithStars from "./EarthWithStars";
 
 // Icons
@@ -17,6 +17,10 @@ import {
   IconChevronUp,
   IconChevronDown,
   IconCircleFilled,
+  IconBulb,
+  IconPencil,
+  IconCode,
+  IconRocket,
 } from "@tabler/icons-react";
 
 // Images
@@ -64,7 +68,7 @@ const sections = [
     overlayGradient:
       "linear-gradient(-88.4deg, rgba(29,29,29,1) 10.8%, rgba(94,224,253,1) 103.8%)",
     title: "Creative Web Experiences",
-    subtitle: "",
+    subtitle: "Building The Future",
     description:
       "We blend artistic vision with technical precision. From immersive animations to intuitive UI/UX, we create captivating environments that engage users and leave a lasting impact—a hallmark of modern, memorable web design.",
   },
@@ -78,7 +82,7 @@ const sections = [
     title: "Event Horizon Tech",
     subtitle: "Why We Built",
     description:
-      "The path to innovation is never static. Here’s a glimpse into our roadmap upcoming features,partnerships,and milestones that will redefine how startups are built. ",
+      "The path to innovation is never static. Here's a glimpse into our roadmap upcoming features,partnerships,and milestones that will redefine how startups are built. ",
     description2: "Join us as we push the boundaries of technology.",
   },
 ];
@@ -675,27 +679,99 @@ const MainPage = () => {
         )}
         {currentSection === 2 && (
           // Section 3 JSX
-          <div>
-            <h1
-              className="text-display-xl font-earthOrbiter mb-6 leading-tight"
-              style={{ opacity: 0, transform: "translateY(20px)" }}
-            >
-              {sections[2].title}
-            </h1>
-            {sections[2].subtitle && (
-              <h2
-                className="text-h3 font-semibold mb-6"
-                style={{ opacity: 0, transform: "translateY(20px)" }}
-              >
-                {sections[2].subtitle}
+          <div className="w-full flex flex-col items-center justify-center py-16 px-4 ">
+            {/* Title & Subtitle */}
+            <div className="max-w-3xl text-center mb-12">
+              <p className="text-fuchsia-400 tracking-widest font-semibold mb-2 text-sm">
+                BUILDING THE FUTURE
+              </p>
+              <h2 className="text-white text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+                HOW WE BUILD
+                <br />
+                BRILLIANT EXPERIENCES
               </h2>
-            )}
-            <p
-              className="text-lead leading-relaxed max-w-3xl mx-auto"
-              style={{ opacity: 0, transform: "translateY(20px)" }}
+              <p className="text-purple-200 text-lg font-medium">
+                From idea to launch and beyond – discover our development
+                journey.
+              </p>
+            </div>
+            {/* Timeline */}
+            <div
+              className="relative w-full max-w-3xl flex justify-between items-center mx-auto"
+              style={{ minHeight: 120 }}
             >
-              {sections[2].description}
-            </p>
+              {/* Timeline line */}
+              <div
+                className="absolute left-0 right-0 top-1/2 h-1 bg-gradient-to-r from-fuchsia-500 via-purple-500 to-purple-500 shadow-[0_0_32px_8px_rgba(168,85,247,0.7)]"
+                style={{ zIndex: 0, transform: "translateY(-50%)" }}
+              />
+              {/* Steps */}
+              {[
+                {
+                  icon: (
+                    <IconBulb
+                      size={40}
+                      stroke={2}
+                      className="text-fuchsia-400 drop-shadow-[0_0_8px_#e879f9]"
+                    />
+                  ),
+                  label: "IDEATION",
+                },
+                {
+                  icon: (
+                    <IconPencil
+                      size={40}
+                      stroke={2}
+                      className="text-fuchsia-400 drop-shadow-[0_0_8px_#e879f9]"
+                    />
+                  ),
+                  label: "WIREFRAME & DESIGN",
+                },
+                {
+                  icon: (
+                    <IconCode
+                      size={40}
+                      stroke={2}
+                      className="text-fuchsia-400 drop-shadow-[0_0_8px_#e879f9]"
+                    />
+                  ),
+                  label: "DEVELOPMENT",
+                },
+                {
+                  icon: (
+                    <IconRocket
+                      size={40}
+                      stroke={2}
+                      className="text-fuchsia-400 drop-shadow-[0_0_8px_#e879f9]"
+                    />
+                  ),
+                  label: "TESTING & QA",
+                },
+              ].map((step, i) => (
+                <div
+                  key={i}
+                  className="flex flex-col items-center flex-1 z-10 relative"
+                >
+                  {/* Icon above dot */}
+                  <div className="mb-3 flex flex-col items-center">
+                    {step.icon}
+                  </div>
+                  {/* Neon dot, perfectly centered on the line */}
+                  <div
+                    className="w-4 h-4 rounded-full bg-gradient-to-tr from-fuchsia-500 via-purple-500 to-purple-500 border-2 border-white shadow-[0_0_12px_4px_#e879f9] mb-8"
+                    style={{ position: "relative", top: "0", zIndex: 10 }}
+                  />
+                  {/* Label below dot */}
+                  <span className="text-white font-bold tracking-wider text-xs mt-1 text-center drop-shadow-[0_0_4px_#e879f9]">
+                    {step.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+            {/* Button */}
+            <button className="mt-12 px-8 py-3 rounded-lg border-2 border-fuchsia-500 text-fuchsia-200 font-bold text-lg tracking-wide bg-transparent hover:bg-fuchsia-500 hover:text-white transition-all shadow-[0_0_16px_2px_#e879f9]">
+              SEE FULL PROCESS &rarr;
+            </button>
           </div>
         )}
         {currentSection === 3 && (
@@ -750,7 +826,7 @@ const MainPage = () => {
           <button
             onClick={() => handleNavigation(-1)}
             disabled={isAnimating}
-            className=" backdrop-blur-sm text-white p-4 rounded-full
+            className=" text-white p-4 rounded-full
                        transition-all duration-300 hover:scale-110 active:scale-95
                        disabled:opacity-50 disabled:cursor-not-allowed"
           >
@@ -759,7 +835,7 @@ const MainPage = () => {
           <button
             onClick={() => handleNavigation(1)}
             disabled={isAnimating}
-            className=" backdrop-blur-sm text-white p-4 rounded-full
+            className=" text-white p-4 rounded-full
                        transition-all duration-300 hover:scale-110 active:scale-95
                        disabled:opacity-50 disabled:cursor-not-allowed"
           >

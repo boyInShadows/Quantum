@@ -11,6 +11,7 @@ import Header from "../header";
 import Footer from "../footer";
 // import AnimatedTitle from "./AnimatedTitle";
 import EarthWithStars from "./EarthWithStars";
+import CodeAnimation from "../animations/codeAnimation";
 
 // Icons
 import {
@@ -32,6 +33,7 @@ import Img3 from "@/public/images/section2/3.jpg";
 import Img4 from "@/public/images/section2/4.jpg";
 import Img5 from "@/public/images/section2/5.jpg";
 import Section4 from "@/public/Images/section4.svg";
+import Svg1 from "@/public/images/section3/svg1.svg";
 
 const sections = [
   {
@@ -679,9 +681,9 @@ const MainPage = () => {
         )}
         {currentSection === 2 && (
           // Section 3 JSX
-          <div className="w-full flex flex-col items-center justify-center py-16 px-4 ">
+          <div className="w-full flex flex-col py-16 lg:px-[10rem] relative ">
             {/* Title & Subtitle */}
-            <div className="max-w-3xl text-center mb-12">
+            <div className="max-w-3xl mb-12">
               <p className="text-fuchsia-400 tracking-widest font-semibold mb-2 text-sm">
                 BUILDING THE FUTURE
               </p>
@@ -695,83 +697,98 @@ const MainPage = () => {
                 journey.
               </p>
             </div>
-            {/* Timeline */}
-            <div
-              className="relative w-full max-w-3xl flex justify-between items-center mx-auto"
-              style={{ minHeight: 120 }}
-            >
-              {/* Timeline line */}
-              <div
-                className="absolute left-0 right-0 top-1/2 h-1 bg-gradient-to-r from-fuchsia-500 via-purple-500 to-purple-500 shadow-[0_0_32px_8px_rgba(168,85,247,0.7)]"
-                style={{ zIndex: 0, transform: "translateY(-50%)" }}
+            {/* Lottie Animation top right */}
+            <div className="hidden lg:block absolute right-[-25vw] top-[-30vh] w-[1000px] h-[1000px] z-1">
+              <Image
+                src={Section4}
+                alt="Earth"
+                width={1000}
+                height={1000}
+                className=" object-contain absolute top-[50vh] right-[2.5vw]  -translate-y-1/2"
+                priority
               />
-              {/* Steps */}
-              {[
-                {
-                  icon: (
-                    <IconBulb
-                      size={40}
-                      stroke={2}
-                      className="text-fuchsia-400 drop-shadow-[0_0_8px_#e879f9]"
-                    />
-                  ),
-                  label: "IDEATION",
-                },
-                {
-                  icon: (
-                    <IconPencil
-                      size={40}
-                      stroke={2}
-                      className="text-fuchsia-400 drop-shadow-[0_0_8px_#e879f9]"
-                    />
-                  ),
-                  label: "WIREFRAME & DESIGN",
-                },
-                {
-                  icon: (
-                    <IconCode
-                      size={40}
-                      stroke={2}
-                      className="text-fuchsia-400 drop-shadow-[0_0_8px_#e879f9]"
-                    />
-                  ),
-                  label: "DEVELOPMENT",
-                },
-                {
-                  icon: (
-                    <IconRocket
-                      size={40}
-                      stroke={2}
-                      className="text-fuchsia-400 drop-shadow-[0_0_8px_#e879f9]"
-                    />
-                  ),
-                  label: "TESTING & QA",
-                },
-              ].map((step, i) => (
-                <div
-                  key={i}
-                  className="flex flex-col items-center flex-1 z-10 relative"
-                >
-                  {/* Icon above dot */}
-                  <div className="mb-3 flex flex-col items-center">
-                    {step.icon}
-                  </div>
-                  {/* Neon dot, perfectly centered on the line */}
-                  <div
-                    className="w-4 h-4 rounded-full bg-gradient-to-tr from-fuchsia-500 via-purple-500 to-purple-500 border-2 border-white shadow-[0_0_12px_4px_#e879f9] mb-8"
-                    style={{ position: "relative", top: "0", zIndex: 10 }}
-                  />
-                  {/* Label below dot */}
-                  <span className="text-white font-bold tracking-wider text-xs mt-1 text-center drop-shadow-[0_0_4px_#e879f9]">
-                    {step.label}
-                  </span>
-                </div>
-              ))}
             </div>
-            {/* Button */}
-            <button className="mt-12 px-8 py-3 rounded-lg border-2 border-fuchsia-500 text-fuchsia-200 font-bold text-lg tracking-wide bg-transparent hover:bg-fuchsia-500 hover:text-white transition-all shadow-[0_0_16px_2px_#e879f9]">
-              SEE FULL PROCESS &rarr;
-            </button>
+            {/* Timeline and Button aligned with content */}
+            <div className="max-w-3xl lg:ml-0 ml-4">
+              {/* Timeline */}
+              <div className="relative" style={{ height: 120 }}>
+                {/* Timeline line */}
+                <div
+                  className="absolute left-0 right-0 top-1/2 h-1 bg-gradient-to-r from-fuchsia-500 via-purple-500 to-purple-500 shadow-[0_0_32px_8px_rgba(168,85,247,0.7)]"
+                  style={{ zIndex: 0, transform: "translateY(-50%)" }}
+                />
+                {/* Steps */}
+                {[
+                  {
+                    icon: (
+                      <IconBulb
+                        size={40}
+                        stroke={2}
+                        className="text-fuchsia-400 drop-shadow-[0_0_8px_#e879f9]"
+                      />
+                    ),
+                    label: "IDEATION",
+                  },
+                  {
+                    icon: (
+                      <IconPencil
+                        size={40}
+                        stroke={2}
+                        className="text-fuchsia-400 drop-shadow-[0_0_8px_#e879f9]"
+                      />
+                    ),
+                    label: "WIREFRAME & DESIGN",
+                  },
+                  {
+                    icon: (
+                      <IconCode
+                        size={40}
+                        stroke={2}
+                        className="text-fuchsia-400 drop-shadow-[0_0_8px_#e879f9]"
+                      />
+                    ),
+                    label: "DEVELOPMENT",
+                  },
+                  {
+                    icon: (
+                      <IconRocket
+                        size={40}
+                        stroke={2}
+                        className="text-fuchsia-400 drop-shadow-[0_0_8px_#e879f9]"
+                      />
+                    ),
+                    label: "TESTING & QA",
+                  },
+                ].map((step, i, arr) => {
+                  const left = `${(i / (arr.length - 1)) * 100}%`;
+                  return (
+                    <div
+                      key={i}
+                      className="absolute flex flex-col items-center"
+                      style={{
+                        left,
+                        top: 0,
+                        width: 0,
+                        transform: "translateX(-50%)",
+                      }}
+                    >
+                      <div className="mb-3">{step.icon}</div>
+                      <div
+                        className="w-4 h-4 rounded-full bg-gradient-to-tr from-fuchsia-500 via-purple-500 to-purple-500 border-2 border-white shadow-[0_0_12px_4px_#e879f9] mb-3"
+                        style={{ zIndex: 10 }}
+                      />
+                      <span className="text-white font-bold tracking-wider text-xs mt-1 text-center drop-shadow-[0_0_4px_#e879f9]">
+                        {step.label}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+              {/* Button */}
+              <button className="mt-12 px-8 w-[35%] py-3 rounded-lg border-2 border-fuchsia-500 text-fuchsia-200 font-bold text-lg tracking-wide bg-transparent hover:bg-fuchsia-500 hover:text-white transition-all shadow-[0_0_16px_2px_#e879f9]">
+                SEE FULL PROCESS &rarr;
+              </button>
+            </div>
           </div>
         )}
         {currentSection === 3 && (

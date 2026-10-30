@@ -25,12 +25,12 @@ import {
 
 // Images
 import Earth from "@/public/Images/orbit.png";
-import CodeSvg from "@/public/images/code.svg";
-import Img1 from "@/public/images/section2/1.jpg";
-import Img2 from "@/public/images/section2/2.jpg";
-import Img3 from "@/public/images/section2/3.jpg";
-import Img4 from "@/public/images/section2/4.jpg";
-import Img5 from "@/public/images/section2/5.jpg";
+import CodeSvg from "@/public/Images/code.svg";
+import Img1 from "@/public/Images/section2/1.jpg";
+import Img2 from "@/public/Images/section2/2.jpg";
+import Img3 from "@/public/Images/section2/3.jpg";
+import Img4 from "@/public/Images/section2/4.jpg";
+import Img5 from "@/public/Images/section2/5.jpg";
 import Section4 from "@/public/Images/section4.svg";
 
 const sections = [
